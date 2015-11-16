@@ -25,21 +25,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 final class Internal {
-  private static final Logger logger = Logger.getLogger("com.almworks.sqlite4java");
   private static final String LOG_PREFIX = "[sqlite] ";
 
   private static final String BASE_LIBRARY_NAME = "sqlite4java";
   private static final String[] DEBUG_SUFFIXES = {"-d", ""};
   private static final String[] RELEASE_SUFFIXES = {"", "-d"};
-
-  private static final AtomicInteger lastConnectionNumber = new AtomicInteger(0);
-
-  static int nextConnectionNumber() {
-    return lastConnectionNumber.incrementAndGet();
-  }
 
   static void recoverableError(Object source, String message, boolean throwAssertion) {
     logWarn(source, message);
@@ -47,46 +39,29 @@ final class Internal {
   }
 
   static void log(Level level, Object source, Object message, Throwable exception) {
-    if (!logger.isLoggable(level)) {
-      return;
-    }
-    StringBuilder builder = new StringBuilder(LOG_PREFIX);
-    if (source != null) {
-      if (source instanceof Class) {
-        String className = ((Class) source).getName();
-        builder.append(className.substring(className.lastIndexOf('.') + 1));
-      } else {
-        builder.append(source);
-      }
-      builder.append(": ");
-    }
-    if (message != null)
-      builder.append(message);
-    logger.log(level, builder.toString(), exception);
+
   }
 
   static void logFine(Object source, Object message) {
-    log(Level.FINE, source, message, null);
+
   }
 
   static void logInfo(Object source, Object message) {
-    log(Level.INFO, source, message, null);
+
   }
 
   static void logWarn(Object source, Object message) {
-    log(Level.WARNING, source, message, null);
+
   }
 
   static boolean isFineLogging() {
-    return logger.isLoggable(Level.FINE);
+    return false;
   }
 
   static Throwable loadLibraryX() {
     if (checkLoaded() == null)
       return null;
-    if ("true".equalsIgnoreCase(System.getProperty("sqlite4java.debug"))) {
-      logger.setLevel(Level.FINE);
-    }
+
     String classUrl = getClassUrl();
     String defaultPath = getDefaultLibPath(classUrl);
     String versionSuffix = getVersionSuffix(classUrl);
@@ -189,7 +164,8 @@ final class Internal {
   private static String getClassUrl() {
     Class c = Internal.class;
     String name = c.getName().replace('.', '/') + ".class";
-    URL url = c.getClassLoader().getResource(name);
+    // URL url = c.getClassLoader().getResource(name);
+    URL url = ClassLoader.getSystemClassLoader().getResource(name);
     if (url == null)
       return null;
     String classUrl = url.toString();

@@ -59,10 +59,6 @@ public final class SQLiteConnection {
    */
   private final File myFile;
 
-  /**
-   * An incremental number of the instance, used for debugging purposes.
-   */
-  private final int myNumber = Internal.nextConnectionNumber();
 
   /**
    * A lock for protecting statement registry & cache. Locking is needed
@@ -1520,7 +1516,8 @@ public final class SQLiteConnection {
   }
 
   public String toString() {
-    return "DB[" + myNumber + "]";
+
+	  return "";
   }
 
   /**

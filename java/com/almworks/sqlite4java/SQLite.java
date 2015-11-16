@@ -24,7 +24,6 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
-import java.util.logging.*;
 
 import static com.almworks.sqlite4java.SQLiteConstants.WRAPPER_CANNOT_LOAD_LIBRARY;
 
@@ -277,7 +276,11 @@ public final class SQLite {
   public static synchronized String getLibraryVersion() {
     if (jarVersion == null) {
       String name = SQLite.class.getName().replace('.', '/') + ".class";
-      URL url = SQLite.class.getClassLoader().getResource(name);
+      ClassLoader myClassLoader = SQLite.class.getClassLoader();
+      if(myClassLoader == null)
+        myClassLoader = ClassLoader.getSystemClassLoader();
+
+      URL url = myClassLoader.getResource(name);
       if (url == null)
         return null;
       String s = url.toString();
@@ -351,17 +354,7 @@ public final class SQLite {
   public static void main(String[] args) {
     if (args.length > 0 && "-d".equals(args[0])) {
       // debug
-      Logger.getLogger("com.almworks.sqlite4java").setLevel(Level.FINE);
-      Handler[] handlers = Logger.getLogger("").getHandlers();
-      for (Handler handler : handlers) {
-        if (handler instanceof ConsoleHandler) {
-          handler.setLevel(Level.FINE);
-          handler.setFormatter(new NiceFormatter());
-        }
-      }
-    } else {
-      Logger.getLogger("com.almworks.sqlite4java").setLevel(Level.SEVERE);
-    }
+
     String v = getLibraryVersion();
     if (v == null) v = "(UNKNOWN VERSION)";
     System.out.println("sqlite4java " + v);
@@ -379,26 +372,5 @@ public final class SQLite {
     }
   }
 
-  private static class NiceFormatter extends Formatter {
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyMMdd:HHmmss.SSS", Locale.US);
-    private static final String LINE_SEPARATOR;
-    static {
-      String s = System.getProperty("line.separator");
-      if (s == null) s = "\n";
-      LINE_SEPARATOR = s;
-    }
-    
-    @Override
-    public String format(LogRecord record) {
-      if (record == null) return "";
-      StringBuilder r = new StringBuilder();
-      r.append(DATE_FORMAT.format(record.getMillis())).append(' ');
-      Level level = record.getLevel();
-      if (level == null) level = Level.ALL;
-      r.append(level.getName()).append(' ');
-      r.append(record.getMessage());
-      r.append(LINE_SEPARATOR);
-      return r.toString();
-    }
   }
 }
