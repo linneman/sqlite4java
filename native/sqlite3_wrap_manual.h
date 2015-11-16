@@ -13,6 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#ifndef SQLITE3_WRAP_MANUAL_H
+#define SQLITE3_WRAP_MANUAL_H
+
+#include <jni.h>
 
 #define WRAPPER_VERSION "1.3"
 
@@ -33,3 +37,7 @@
 #define WRAPPER_WEIRD (-99)
 #define WRAPPER_WEIRD_2 (-199)
 
+jint jni_load_wrap_manual(JavaVM *jvm, void *reserved);
+void jni_unload_wrap_manual(JavaVM *jvm, void *reserved);
+
+#endif /* #ifndef SQLITE3_WRAP_MANUAL_H */

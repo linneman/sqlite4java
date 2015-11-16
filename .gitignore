@@ -42,4 +42,3 @@ swig/SWIGTYPE_p_sqlite3_blob.java
 swig/SWIGTYPE_p_sqlite3_stmt.java
 swig/_SQLiteSwigged.java
 swig/_SQLiteSwiggedJNI.java
-swig/sqlite_wrap.c

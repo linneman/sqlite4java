@@ -3,11 +3,11 @@ ACLOCAL_AMFLAGS = -I m4
 # meta library name used by libtool
 lib_LTLIBRARIES=libsqlite4java.la
 
-# generated sources
-SQLITE_WRAP = swig/sqlite_wrap.c
-BUILT_SOURCES = $(SQLITE_WRAP)
+# NO SOURCE GENERATION DUE TO MANUAL CHANGES!
+## SQLITE_WRAP = swig/sqlite_wrap.c
+## BUILT_SOURCES = $(SQLITE_WRAP)
 # Correctly clean the generated headers
-CLEANFILES = $(BUILT_SOURCES)
+## CLEANFILES = $(BUILT_SOURCES)
 
 # installed header files
 include_HEADERS= \
@@ -38,9 +38,10 @@ libsqlite4java_la_LDFLAGS += -avoid-version
 libsqlite4java_la_LDFLAGS += -Xlinker --version-script=native/mapfile-vers-product
 
 
-$(SQLITE_WRAP): swig/sqlite3_swigged.h swig/sqlite.i
-	cd swig ; \
-	swig -java sqlite.i
+# NO SOURCE GENERATION DUE TO MANUAL CHANGES!
+# $(SQLITE_WRAP): swig/sqlite3_swigged.h swig/sqlite.i
+# 	cd swig ; \
+# 	swig -java sqlite.i
 
 # the rest of the sources goes into distribution (make dist)
 libsqlite4java_la_SOURCES = \
