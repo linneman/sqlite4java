@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 20.6-b01 (Sun Microsystems Inc.)
+Main-Class: com.almworks.sqlite4java.SQLite
+Specification-Title: sqlite4java
+Specification-Version: 392
+Specification-Vendor: ALM Works
+Implementation-Title: sqlite4java
+Implementation-URL: http://code.google.com/p/sqlite4java
+Implementation-Vendor: ALM Works
+Implementation-Version: 392
+

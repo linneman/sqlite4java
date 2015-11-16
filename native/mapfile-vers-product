@@ -1,0 +1,10 @@
+#Define public interface.
+
+SUNWprivate_1.1 {
+       global:
+              JNI_OnLoad;
+              JNI_OnUnload;
+
+       local:
+               *;
+};
