@@ -4,10 +4,10 @@ ACLOCAL_AMFLAGS = -I m4
 lib_LTLIBRARIES=libsqlite4java.la
 
 # NO SOURCE GENERATION DUE TO MANUAL CHANGES!
-## SQLITE_WRAP = swig/sqlite_wrap.c
-## BUILT_SOURCES = $(SQLITE_WRAP)
+SQLITE_WRAP = swig/sqlite_wrap.c
+BUILT_SOURCES = $(SQLITE_WRAP)
 # Correctly clean the generated headers
-## CLEANFILES = $(BUILT_SOURCES)
+CLEANFILES = $(BUILT_SOURCES)
 
 # installed header files
 include_HEADERS= \
@@ -37,16 +37,15 @@ libsqlite4java_la_LDFLAGS = $(AM_LDFLAGS)
 libsqlite4java_la_LDFLAGS += -avoid-version
 libsqlite4java_la_LDFLAGS += -Xlinker --version-script=native/mapfile-vers-product
 
-
-# NO SOURCE GENERATION DUE TO MANUAL CHANGES!
-# $(SQLITE_WRAP): swig/sqlite3_swigged.h swig/sqlite.i
-# 	cd swig ; \
-# 	swig -java sqlite.i
+# source generation mainly for later Java build
+$(SQLITE_WRAP): swig/sqlite3_swigged.h swig/sqlite.i
+	cd swig ; \
+	swig -java sqlite.i
 
 # the rest of the sources goes into distribution (make dist)
 libsqlite4java_la_SOURCES = \
 	native/sqlite3_wrap_manual.c \
-	swig/sqlite_wrap.c \
+	native/sqlite_wrap.c \
 	native/intarray.c \
 	sqlite/sqlite3.c
 
