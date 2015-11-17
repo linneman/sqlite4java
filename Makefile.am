@@ -40,7 +40,7 @@ libsqlite4java_la_LDFLAGS += -Xlinker --version-script=native/mapfile-vers-produ
 # source generation mainly for later Java build
 $(SQLITE_WRAP): swig/sqlite3_swigged.h swig/sqlite.i
 	cd swig ; \
-	swig -java sqlite.i
+	swig -java -package com.almworks.sqlite4java sqlite.i
 
 # the rest of the sources goes into distribution (make dist)
 libsqlite4java_la_SOURCES = \
