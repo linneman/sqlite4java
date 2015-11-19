@@ -34,8 +34,6 @@ AM_CPPFLAGS = -Wall \
 
 AM_CFLAGS = -O2 -fpic -fno-omit-frame-pointer -fno-strict-aliasing -static-libgcc
 libsqlite4java_la_LDFLAGS = $(AM_LDFLAGS)
-libsqlite4java_la_LDFLAGS += -avoid-version
-libsqlite4java_la_LDFLAGS += -Xlinker --version-script=native/mapfile-vers-product
 
 
 $(SQLITE_WRAP): swig/sqlite3_swigged.h swig/sqlite.i
